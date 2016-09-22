@@ -179,9 +179,6 @@ var userArr = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck",
 
 userArr.forEach(function(user, index, array){
 
-	$.getJSON(url + "channels/" + user + id, function(cData){
-		console.log(index + " " + user);
-		
 		$.getJSON(url + "channels/" + user + id, function(cData){
 			html += "<div class='userBox'>";
 			html += "<div class='userTitle'>";
@@ -193,16 +190,6 @@ userArr.forEach(function(user, index, array){
 			html += "</div>";
 			$(".results").html(html);
 		})
-	})
-
-	// <div class="userBox">
-	// 	<div class="userTitle">
-	// 		<img class="logo" id="logo" src="https://i1376.photobucket.com/albums/ah12/RosiePosieUK/me_zpsj5bhel4s.jpg">
-	// 		<h4><a id="userTitle" href="#"> Free Code Camp</a></h4> 
-	// 		<p class="status pull-right" id="status"></p>
-	// 	</div>
-	// 	<p><a href="#" id="userStreaming">Currently streaming: </a></p>
-	// 	<p id="userNotExist" class="">User doesn't exist</p>
 
 
 		$.getJSON(url + "streams/" + user + id, function(sData){
