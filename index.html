@@ -171,83 +171,51 @@ $("document").ready(function(){
 var userArr = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
 
 
-
-
 	var url = "https://api.twitch.tv/kraken/";
 	var id = "?client_id=m8df8m71995vq176lg6wxmqhu6wzgv8";
-	var html;
+	var html = "";
+	var status;
 
-userArr.forEach(function(user, index, array){
+userArr.forEach(function(user){
 
 		$.getJSON(url + "channels/" + user + id, function(cData){
+
 			html += "<div class='userBox'>";
 			html += "<div class='userTitle'>";
 			html += "<img class='logo' id='logo' src='" + cData.logo + "'>";
-			html += "<h4><a id='userTitle' href='" + cData.url + "'>"  + cData.display_name + "</a></h4>";
+			html += "<h4><a id='userTitle' href='" + cData.url + "'target='_blank'>"  + cData.display_name + "</a></h4>";
 			html += "<p class='status pull-right' id='status'>" + "</p>"
 			html += "</div>";
 			html += "<p><a href='" + "#" + "id='game'>info here</a></p>";
 			html += "</div>";
 			$(".results").html(html);
-		})
+		
+
+
 
 
 		$.getJSON(url + "streams/" + user + id, function(sData){
 			// console.log(sData);
-			var status;
-			var game;
-			if(sData.stream != null){
-				// status = online;
-				$("#status").html("Online");
+			// var status;
+			// var game;
+			if(sData.stream !== null){
+				status = "Online";
+				$("#status").html(status);
 				$("#status").addClass("online");
-				game = sData.game;
+				console.log(user + " online");
+				// game = sData.game;
 			}else{
-				// status = offline;
-				$("#status").html("Offline")
+				status = "Offline";
+				$("#status").html(status)
 				$("#status").addClass("offline");
+				console.log(user + " offline");
 			}
-		})
-
-
+			})//end getJSON Channels
+		})//end getJSON streams
 });//end forEach
 
-		// $.getJSON(url + "channels/" + user + id, function(cData){
-		// 	html += "<div class='userBox'>";
-		// 	html += "<div class='userTitle'>";
-		// 	html += "<img class='logo' id='logo' src='" + cData.logo + "'>";
-		// 	html += "<h4><a id='userTitle' href='" + cData.url + "'>"  + cData.display_name + "</a></h4>";
-		// 	html += "<p class='status pull-right' id='status'>" + "</p>"
-		// 	html += "</div>";
-		// 	html += "<p><a href='" + "#" + "id='game'>info here</a></p>";
-		// 	html += "</div>";
-		// 	$(".results").html(html);
-		// })
 
 
-//streams provides url to the user's channel. If online it provides details about what is streaming
-// if offline stream = null
-
-// function getStreams (){
-// 	$.getJSON("https://api.twitch.tv/kraken/streams/freecodecamp?client_id=m8df8m71995vq176lg6wxmqhu6wzgv8", function(data){
-// 	var userData = "data";
-// 	console.log(data);
-// }).fail(function error(){
-// 	console.log("user does not exist")
-// 	// $("body").css("backgroundColor", "red");
-// });
-// }
-
-// //user provides info about user, including bio and logo
-// //channel provided info about the channel
-// function getChannels (){
-// 	$.getJSON("https://api.twitch.tv/kraken/streams/freecodecamp/?client_id=m8df8m71995vq176lg6wxmqhu6wzgv8", function(data){
-// 	var userData = "data";
-// 	console.log(data);
-// }).fail(function error(){
-// 	console.log("user does not exist")
-// 	// $("body").css("backgroundColor", "red");
-// });
-// }
 
 
 // channels();
