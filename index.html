@@ -98,6 +98,19 @@
 	   	display: none;
 	   }
 
+	   .status{
+	   	display: inline-block;
+	   	margin-top: 10px;
+	   }
+
+	   .online{
+	   	color: green;
+	   }
+
+	   .offline{
+	   	color: red;
+	   }
+
 	</style>
 </head>
 <body>
@@ -114,11 +127,12 @@
 <!-- 	<div class="userBox">
 		<div class="userTitle">
 			<img class="logo" id="logo" src="https://i1376.photobucket.com/albums/ah12/RosiePosieUK/me_zpsj5bhel4s.jpg">
-			<h4><a id="userTitle" href="#"> Free Code Camp</a></h4>
+			<h4><a id="userTitle" href="#"> Free Code Camp</a></h4> 
+			<p class="status pull-right" id="status"></p>
 		</div>
 		<p><a href="#" id="userStreaming">Currently streaming: </a></p>
-		<p id="userNotExist" class="">User doesn't exist</p>
-	</div> -->
+		<p id="userNotExist" class="">User doesn't exist</p> 
+	</div>-->
 
 
 </div><!-- end wrapper -->
@@ -154,58 +168,73 @@
 
 $("document").ready(function(){
 
-var userArr = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas", "brunofin", "comster404"];
-
-var url = "https://api.twitch.tv/kraken/";
-var id = "?client_id=m8df8m71995vq176lg6wxmqhu6wzgv8";
-var channelsData;
-// var streamsData;
-var html;
+var userArr = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
 
 
-userArr.forEach(function(user){
-	
-		// $.getJSON(url + "streams/" + user + id, function(sData){
-		// 	// console.log(data);
-		// 	streamsData = sData;
-		// 	// console.log(streamsData);
-		// })
 
+
+	var url = "https://api.twitch.tv/kraken/";
+	var id = "?client_id=m8df8m71995vq176lg6wxmqhu6wzgv8";
+	var html;
+
+userArr.forEach(function(user, index, array){
+
+	$.getJSON(url + "channels/" + user + id, function(cData){
+		console.log(index + " " + user);
+		
 		$.getJSON(url + "channels/" + user + id, function(cData){
-			channelsData = cData;
-			allUsers(channelsData);
-		})
-
-		function allUsers(channelsData){
-			if ()
-
 			html += "<div class='userBox'>";
 			html += "<div class='userTitle'>";
-			html += "<img class='logo' id='logo' src='" + channelsData.logo + "'>";
-			html += "<h4><a id='userTitle' href='" + channelsData.url + "'>"  + channelsData.display_name + "</a></h4>";
+			html += "<img class='logo' id='logo' src='" + cData.logo + "'>";
+			html += "<h4><a id='userTitle' href='" + cData.url + "'>"  + cData.display_name + "</a></h4>";
+			html += "<p class='status pull-right' id='status'>" + "</p>"
 			html += "</div>";
+			html += "<p><a href='" + "#" + "id='game'>info here</a></p>";
 			html += "</div>";
-
 			$(".results").html(html);
+		})
+	})
 
-		}
-
-
-
-	// 	<div class="userBox">
+	// <div class="userBox">
 	// 	<div class="userTitle">
 	// 		<img class="logo" id="logo" src="https://i1376.photobucket.com/albums/ah12/RosiePosieUK/me_zpsj5bhel4s.jpg">
-	// 		<h4><a id="userTitle" href="#"> Free Code Camp</a></h4>
+	// 		<h4><a id="userTitle" href="#"> Free Code Camp</a></h4> 
+	// 		<p class="status pull-right" id="status"></p>
 	// 	</div>
 	// 	<p><a href="#" id="userStreaming">Currently streaming: </a></p>
 	// 	<p id="userNotExist" class="">User doesn't exist</p>
-	// </div>
 
+
+		$.getJSON(url + "streams/" + user + id, function(sData){
+			// console.log(sData);
+			var status;
+			var game;
+			if(sData.stream != null){
+				// status = online;
+				$("#status").html("Online");
+				$("#status").addClass("online");
+				game = sData.game;
+			}else{
+				// status = offline;
+				$("#status").html("Offline")
+				$("#status").addClass("offline");
+			}
+		})
 
 
 });//end forEach
 
-
+		// $.getJSON(url + "channels/" + user + id, function(cData){
+		// 	html += "<div class='userBox'>";
+		// 	html += "<div class='userTitle'>";
+		// 	html += "<img class='logo' id='logo' src='" + cData.logo + "'>";
+		// 	html += "<h4><a id='userTitle' href='" + cData.url + "'>"  + cData.display_name + "</a></h4>";
+		// 	html += "<p class='status pull-right' id='status'>" + "</p>"
+		// 	html += "</div>";
+		// 	html += "<p><a href='" + "#" + "id='game'>info here</a></p>";
+		// 	html += "</div>";
+		// 	$(".results").html(html);
+		// })
 
 
 //streams provides url to the user's channel. If online it provides details about what is streaming
