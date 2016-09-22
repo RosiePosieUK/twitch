@@ -16,8 +16,9 @@
 		}
 
 		.wrapper{
-			width: 500px;
-			margin: 30px  auto;
+			width: 50%;
+			margin: 0  auto;
+			margin-top: 30px;
 			padding: 20px;
 			background-color: #fff;
 			border-radius: 5px;
@@ -143,101 +144,53 @@
 <script>
 	
 
-
-
-// for each user:
-// go to channels api to get logo - channels.logo
-// go to stream api to determine if streaming stream.stream !=null
-
-// for each{
-	//function to get channels api
-	//function to get stream api
-//}
-
-
-// if streaming userStreaming url = stream.stream.channel.url
-// if streaming userStreaming html = stream.stream.channel.game
-
-// when online is clicked:
-// if stream.stream = null
-	// userBox add class hide
-
-//when offline is clicked:
-//if stream.stream != null
-	//  userbox add class hide
-
 $("document").ready(function(){
 
 var userArr = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
-
 
 	var url = "https://api.twitch.tv/kraken/";
 	var id = "?client_id=m8df8m71995vq176lg6wxmqhu6wzgv8";
 	var html = "";
 	var status;
 
-userArr.forEach(function(user){
+	userArr.forEach(function(user){
 
 		$.getJSON(url + "channels/" + user + id, function(cData){
+		$.getJSON(url + "streams/" + user + id, function(sData){
 
+			if(sData.stream !== null){
+				status = "Online";
+				var game = "Now playing: " + sData.stream.game;
+				console.log(user + " " + status + " " + game);
+			}else{
+				status = "Offline";
+				game = "";
+				console.log(user + " " + status);
+			}
+
+			console.log(cData);
 			html += "<div class='userBox'>";
 			html += "<div class='userTitle'>";
 			html += "<img class='logo' id='logo' src='" + cData.logo + "'>";
 			html += "<h4><a id='userTitle' href='" + cData.url + "'target='_blank'>"  + cData.display_name + "</a></h4>";
-			html += "<p class='status pull-right' id='status'>" + "</p>"
+			html += "<p class='status pull-right' id='status'>" + status + "</p>";
 			html += "</div>";
-			html += "<p><a href='" + "#" + "id='game'>info here</a></p>";
+			html += "<p><a href='" + "#" + "id='game'>" + game + "</a></p>";
 			html += "</div>";
 			$(".results").html(html);
-		
-
-
-
-
-		$.getJSON(url + "streams/" + user + id, function(sData){
-			// console.log(sData);
-			// var status;
-			// var game;
-			if(sData.stream !== null){
-				status = "Online";
-				$("#status").html(status);
-				$("#status").addClass("online");
-				console.log(user + " online");
-				// game = sData.game;
-			}else{
-				status = "Offline";
-				$("#status").html(status)
-				$("#status").addClass("offline");
-				console.log(user + " offline");
-			}
-			})//end getJSON Channels
+			
+		})//end getJSON Channels
 		})//end getJSON streams
-});//end forEach
+	});//end forEach
 
 
 
+	// if($("#status").html === "Online"){
+	// 	$("#status").addClass("online");
+	// }else{
+	// 	$("#status").addClass("offline");
+	// }
 
-
-// channels();
-
-
-
-// $.ajax({
-// 	type: "GET",
-// 	url: "https://api.twitch.tv/kraken/streams/freecodecamp",
-// 	headers: {"Client-ID": "m8df8m71995vq176lg6wxmqhu6wzgv8"},
-// 	success: function(data){
-// 		var userData = data;
-// 		console.log(userData);
-// 	}
-// })
-
-// function getUsers (){
-// 	userArr.forEach(function(user){
-
-// 	})
-// }
-//I want to make a url for each user
 
 //twitch Client-ID: m8df8m71995vq176lg6wxmqhu6wzgv8
 
