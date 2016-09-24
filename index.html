@@ -127,7 +127,7 @@
 		}	
 
 		.userTitleOffline{
-			margin: 15px 0 10px 0;
+			margin: 10px 0 10px 0;
 		}
 
 	   .userTitle{
@@ -148,20 +148,22 @@
 	   	font-weight: bold;
 	   }
 
-	   .offline, .noUserName{
+	   .offline{
+	   	color: #ffbb3f;
+	    font-weight: bold;
+	   }
+
+
+	   .noUserName{
 	   	color: grey;
 	   }
 
-	   .offline{
-	   	/*font-weight: bold;*/
-	   }
-
 	   .noUser{
-	   	color: red;
+	   	color: grey;
 	   }
 
 		.onlineBox{
-	   	/*background-color: #e8f2e0;*/
+	   	/*background-color: #f1f9eb;*/
 	   }
 
 	   .offlineBox{
@@ -247,10 +249,10 @@ userArr.forEach(function(user){
 			+ "<div class='userTitle clearfix'>"
 			+ "<img class='logo' id='logo' src='" 
 			+ sData.stream.channel.logo + "'>"
-			+ "<h4 class='online'><a id='userTitle' title='Go to channel' href='" + sData.stream.channel.url + "'target='_blank'>"  
+			+ "<h4 class='online'><a id='userTitle' title='Go to this channel...' href='" + sData.stream.channel.url + "'target='_blank'>"  
 			+ sData.stream.channel.display_name + "</a></h4>"
 			+ "<p class='status pull-right online' id='status'>" + status + "</p>"
-			+ "<p><a href='" + "#" + "id='game' title='Current stream'>" + sData.stream.channel.game + "</a></p>"
+			+ "<p><a href='" + "#" + "id='game' title='Currently streaming...'>" + sData.stream.channel.game + "</a></p>"
 			+ "</div>"
 			+ "</div>");
 		}
@@ -264,7 +266,7 @@ userArr.forEach(function(user){
 			+ "<div class='userTitle  clearfix'>"
 			+ "<img class='logo logoOffline' id='logo' src='" 
 			+ cData.logo + "'>"
-			+ "<h4 class='userTitleOffline'><a id='userTitle' title='Go to channel' href='" + cData.url + "'target='_blank'>"  
+			+ "<h4 class='userTitleOffline'><a id='userTitle' title='Go to this channel...' href='" + cData.url + "'target='_blank'>"  
 			+ cData.display_name + "</a></h4>"
 			+ "<p class='status pull-right offline' id='status'>" + status + "</p>"
 			+ "</div>"
